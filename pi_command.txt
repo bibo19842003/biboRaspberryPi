@@ -1,0 +1,11 @@
+Pi 4 常用命令
+1、查看板子硬件版本
+   dmesg | grep model
+2、查看板子接口信息
+   pinout
+3、查看 CPU 信息
+  cat /proc/cpuinfo
+  lscpu
+4、调用摄像头
+  raspivid -t -0 -hf
+  raspivid -o - -t 0 -fps 30|cvlc -vvv stream:///dev/stdin --sout '#standard{access=http,mux=ts,dst=:8080}' :demux=h264

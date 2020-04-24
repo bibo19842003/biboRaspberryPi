@@ -1,0 +1,46 @@
+Pi 4 安装
+1、镜像下载地址
+  http://www.raspberrypi.org/downloads
+2、SD 卡进行格式化
+  格式化软件（windows）：SDFormatter.exe
+3、镜像烧录
+  （1）镜像包解压缩
+  （2）烧录软件（windows）：Win32DiskImager.exe
+  （3）开启ssh：SD卡根目录创建 ssh 空白文件，无文件名
+  （4）配置wifi：SD卡根目录创建 wpa_supplicant.conf 文件，内容参考如下： 
+country=GB
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+network={
+	ssid="将我替换成第一个WiFi的名字，不删除引号,不能有中文"
+	psk="将我替换成WiFi密码，不删除引号"
+	priority=将我替换成数字，数字越大代表优先级越高
+}
+network={
+	ssid="将我替换成第二个WiFi的名字，不删除引号,不能有中文"
+	psk="将我替换成WiFi密码，不删除引号"
+	priority=将我替换成数字，数字越大代表优先级越高
+}
+
+4、树莓派插卡启动
+5、获取 Pi 的 IP
+  局域网 IP 扫描软件（windows）：ipscan
+6、登录
+  远程访问软件（windows）：putty
+  默认账号/密码：pi/raspberry
+7、安装samba
+  命令：sudo apt install samba
+  配置文件路径：/etc/samba/smb.conf
+  配置文件内容：
+ [MyFiles]
+ comment = Pi4 Storage
+ valid users = pi
+ path = /home/pi/
+ browseable = yes
+ writable = yes
+ create mask = 0777
+ directory mask = 0777
+  修改 samba 密码：sudo smbpasswd -a pi
+  重启 samba 服务：sudo samba restart
+
+  
